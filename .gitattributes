@@ -1,0 +1,16 @@
+# Normalise line endings in the repository, and be explicit about the two cases
+# that have caused real failures in this workflow.
+* text=auto eol=lf
+
+# Windows batch files want CRLF
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Device-side shell scripts MUST keep LF: pushing a CRLF script makes the
+# device shell fail with "syntax error: unmatched 'if'" (see docs/01).
+*.sh text eol=lf
+
+# Binary-looking artefacts that should never be text-normalised
+*.png binary
+*.jpg binary
+*.pdf binary

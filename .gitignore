@@ -1,0 +1,43 @@
+# ---- analysis output (regenerable, often large, may contain target data) ----
+out/
+ghidra_out/
+ghidra_projects/
+projects/
+unpacked/
+logs/
+*.gpr
+*.rep/
+smali*/
+decompiled/
+
+# ---- device / unpacking artefacts ----
+*.apk
+*.apks
+*.xapk
+*.dex
+*.odex
+*.vdex
+*.art
+*.so
+frida-server-*
+platform-tools/
+
+# ---- local configuration with real machine paths ----
+config/local.json
+config/*.local.json
+.env
+
+# ---- python ----
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.mypy_cache/
+.pytest_cache/
+
+# ---- editors / OS ----
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
