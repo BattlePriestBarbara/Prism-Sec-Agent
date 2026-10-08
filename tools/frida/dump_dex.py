@@ -72,6 +72,7 @@ def main() -> int:
         device = frida.get_usb_device(timeout=10)
     print(f"[i] device: {device}")
 
+    pid = None
     if args.attach:
         session = device.attach(args.attach)
         print(f"[i] attached to pid {args.attach}")
@@ -85,8 +86,8 @@ def main() -> int:
     script.on("message", lambda message, data: on_message(message, data, Path(args.out), counter))
     script.load()
 
-    if not args.attach:
-        device.resume(pid if not args.attach else 0)
+    if pid is not None:
+        device.resume(pid)
         print("[i] resumed; waiting for the packer to decrypt ...")
 
     if args.seconds:

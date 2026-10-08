@@ -1,0 +1,10 @@
+# Frida / dynamic side - install into the Frida virtual environment (docs/01, section 2).
+#
+# The Python binding and the CLI must stay in step with the frida-server binary that is
+# pushed to the device: a mismatch shows up as
+#   "unable to communicate with remote frida-server"
+# which reads like a network fault and is not (docs/01, section 2).
+frida==17.18.0
+frida-tools          # provides the frida / frida-ps / frida-trace console scripts
+
+# dump_dex.py, check_setup.py, unpack_servers.py and fetch_frida_asset.py need nothing else.

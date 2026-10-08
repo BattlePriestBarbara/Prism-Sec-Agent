@@ -9,6 +9,11 @@ logs/
 *.rep/
 smali*/
 decompiled/
+*.ghidra.json
+*.dexprobe.json
+*.targeted.c
+*.bak
+frida*.log
 
 # ---- device / unpacking artefacts ----
 *.apk

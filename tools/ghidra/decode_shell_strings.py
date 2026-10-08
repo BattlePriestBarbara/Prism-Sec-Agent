@@ -13,9 +13,10 @@ import argparse
 import re
 from pathlib import Path
 
-#: Substrings that make a decoded value obviously a real identifier/path/type.
+#: Substrings that make a decoded value obviously a real identifier/path/type. This is a
+#: starting point to adapt, not a signature list - drop what never appears in your sample.
 HINTS = ("com.", "/data", "Landroid", "Ljava", "Lcom/", "android.", "java.",
-         "/system", "libshell", "dtc", "ActivityThread", "Instrumentation",
+         "/system", "dtc", "ActivityThread", "Instrumentation",
          "ClassLoader", "DexFile", "assets", "lib/", ".so", "ro.", "getprop",
          "package", "signature", "cert", "isRoot", "xposed", "frida")
 

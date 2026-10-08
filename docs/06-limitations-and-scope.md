@@ -102,4 +102,13 @@ To publish the method without publishing the target, the sanitisation pass remov
 * generated analysis output (decompiled C, smali trees, JSON evidence) — the scripts that produce
   it are shipped instead.
 
+Two things were deliberately kept, and the distinction matters when you read the list above:
+the entry about vendor brands covers the **target's** vendors (packer, SDK supplier, app
+publisher), not the **tooling**. Ghidra, PyGhidra, Frida/frida-server, Android platform-tools
+and the Android emulator used for the dynamic pass keep their real names, because they are
+public software the reader installs anyway. Likewise, where the original scripts contained a
+container name that only exists in this one sample, the published versions discover it at run
+time (`tools/ghidra/payload_probe.py`) — a hard-coded artefact name would be both a fingerprint
+of the target and useless on the next APK.
+
 The numbers, tables and outcomes are untouched: they are what makes the write-up transferable.

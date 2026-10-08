@@ -79,7 +79,9 @@ tells you which module to decompile next.
 │   ├── README.md                   placeholder vocabulary + script index
 │   ├── ghidra/                     static side: triage, batch analysis, decompile-by-name,
 │   │                               JNI surface, APK/DEX/payload probes, emulator helpers
-│   └── frida/                      dynamic side: driver, environment helpers,
+│   │   └── requirements.txt        PyGhidra + jpype (+ mcp for the server checkout)
+│   └── frida/                      dynamic side: driver, environment helpers, hooks/
+│       ├── requirements.txt        frida + frida-tools (keep in step with frida-server)
 │       └── hooks/                  one script per question
 └── scripts/
     └── check_local_paths.py        hygiene gate: fails if absolute paths sneak back in
@@ -94,6 +96,8 @@ The published tree went through an audited rewrite, not a manual tidy-up:
 | Absolute paths (workspace, Ghidra/Frida/JDK/emulator installs, user profile) | `<WORK_DIR>`, `<OUT_DIR>`, `<GHIDRA_MCP_ROOT>`, ... |
 | Application name, package name, stub entry class, packer/vendor brand | `com.example.targetapp`, `com.example.shell.ShellStub`, "the commercial packer" |
 | Third-party SDK brands | role names: `libtransport.so`, `libliveness.so`, `liblicense.so`, ... |
+| Sample-specific artefact names (decoy folders, packed loader libraries) | discovery logic, so the scripts work on the next APK too |
+| Tooling product names (Ghidra, PyGhidra, Frida, platform-tools, the Android emulator) | **kept** — public software the reader installs; only the *target's* vendors are rewritten |
 | File hashes, sample metadata, generated analysis output | nothing — the scripts that produce it are shipped instead |
 
 Numbers, tables and outcome statements are **unchanged**; they are the transferable part. Run the

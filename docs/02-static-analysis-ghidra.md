@@ -104,7 +104,10 @@ stub resolver can be recovered.
 * libraries with plenty of exports but **zero** `Java_*` symbols — reachable only through
   `JNIEnv->RegisterNatives()` at runtime, which changes the dynamic plan (see doc 03).
 
-It also writes a machine-readable summary that the on-device `jni_boundary.js` hook can read.
+It also writes a machine-readable summary (`<OUT_DIR>/jni_surface.json`). A Frida script cannot
+read host files, so the summary is meant to be read by *you* between the two stages: use it to
+edit the hook's focus/deny patterns (`MODULE_FOCUS`, `MODULE_DENY` in `jni_boundary.js`) instead
+of letting it trace the framework's own `Java_*` exports.
 
 **Step 6 — keep evidence in JSON, not prose.** Every stage writes structured output with the
 input hashes, the tool settings and the counts. A report written from a JSON contract can be

@@ -46,6 +46,21 @@ Layout used throughout this repository (placeholders are defined in the top-leve
   `unable to communicate with remote frida-server`, which reads like a network problem and
   is not.
 
+Both halves are pinned in manifests that ship with this repository, one per environment —
+`tools/ghidra/requirements.txt` (PyGhidra + jpype, plus `mcp` for the server checkout) and
+`tools/frida/requirements.txt` (`frida` + `frida-tools`). Installing each side from its own
+file is what stops the two from fighting over one interpreter:
+
+```powershell
+# Frida side
+python -m venv <FRIDA_ROOT>\.venv
+& <FRIDA_ROOT>\.venv\Scripts\python.exe -m pip install -r <TOOLS_DIR>\frida\requirements.txt
+
+# Ghidra side (offline route: wheels bundled in <GHIDRA_INSTALL>\Features\PyGhidra\pypkg\dist)
+python -m venv <GHIDRA_MCP_ROOT>\.venv
+& <GHIDRA_MCP_ROOT>\.venv\Scripts\python.exe -m pip install -r <TOOLS_DIR>\ghidra\requirements.txt
+```
+
 ## 3. MCP wiring (Ghidra as tools)
 
 The assistant talks to Ghidra over MCP, not over a GUI. The server is a small stdio

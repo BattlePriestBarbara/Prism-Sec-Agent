@@ -25,6 +25,13 @@ const TARGETS = [
     ["libocr.so", "Java_com_example_ocr_jni_JniInterface_getTokenFromLicense"]
 ];
 
+// Modules whose load state is reported at the end of the run. Derived from TARGETS so the
+// two lists cannot drift, plus the packer's own loader (the last thing a shell dlopens -
+// usually only after the real libraries are in place).
+const TARGET_MODULES = TARGETS.map(entry => entry[0])
+    .concat("libshell.so")
+    .filter((name, index, all) => all.indexOf(name) === index);
+
 function hexdumpPtr(ptr, length) {
     try { return hexdump(ptr, { length: length, ansi: false }); }
     catch (e) { return "<unreadable>"; }
@@ -104,7 +111,7 @@ if (!hasJava) {
                 status.total + ", module loaded but symbol missing " + status.pending);
         }
         if (delay === 20000) {
-            ["libtransport.so", "liblicense.so", "libocr.so", "libshell_vip_64.so"]
+            TARGET_MODULES
                 .forEach(function (name) {
                     const module = Process.findModuleByName(name);
                     console.log((module ? "[*] loaded: " : "[*] not loaded: ") + name +

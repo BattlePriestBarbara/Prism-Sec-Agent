@@ -1,0 +1,16 @@
+# Ghidra / static side - install into the PyGhidra virtual environment (docs/01, section 2).
+#
+# Only the three scripts that drive Ghidra need these:
+#   ghidra_batch.py, decompile_named.py, requery_strings.py
+# The other ghidra/ scripts (triage_elf, apk_zip_probe, dex_probe, payload_probe,
+# ld_config_probe, ld_set_root) are stdlib-only on purpose, so they run in any Python 3.9+.
+#
+# PyGhidra also ships as wheels inside the Ghidra installation
+# (<GHIDRA_INSTALL>/Features/PyGhidra/pypkg/dist), which is the offline route when PyPI is
+# slow or blocked.
+pyghidra==3.1.0
+jpype1==1.5.2
+
+# Needed by the Ghidra MCP server checkout itself (server.py + the ghidra_mcp package), which
+# lives in its own repository; the batch scripts import ghidra_mcp from <GHIDRA_MCP_ROOT>.
+mcp==2.2.0

@@ -1,11 +1,11 @@
 // dump_dex_art.js - precise DEX capture by hooking ART's own dex openers.
 //
-// Why this beats memory scanning for the commercial packer (VIP tier): the shell never writes the real DEX to
-// disk (all it leaves in /data/data/<pkg>/.shell/ is a 284-byte placeholder "tmp.dex" plus
-// its own libshell_vip_64.so), so the decrypted image only exists as a buffer that gets
-// handed to ART. Brute-force range scanning of a multi-hundred-MB address space is far too
-// slow to run every second inside an ARM-translated process - but ART's entry points are
-// exported symbols, so we can hook them and grab (buffer, size) directly.
+// Why this beats memory scanning for this packer class: the shell never writes the real DEX
+// to disk (all it leaves in /data/data/<pkg>/.<shell-dir>/ is a 284-byte placeholder
+// "tmp.dex" plus its own loader library), so the decrypted image only exists as a buffer
+// that gets handed to ART. Brute-force range scanning of a multi-hundred-MB address space is
+// far too slow to run every second inside an ARM-translated process - but ART's entry points
+// are exported symbols, so we can hook them and grab (buffer, size) directly.
 //
 // Works without the Java bridge (Frida 17 no longer bundles it) because libart.so is a
 // normal ELF with a dynamic symbol table.
